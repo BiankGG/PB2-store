@@ -218,3 +218,19 @@ Para comprobar si las credenciales son correctas, necesitaremos el middleware `e
   - [Get Started with Firebase Authentication on Websites](https://firebase.google.com/docs/auth/web/start)
 
 
+MY README---------
+
+Primero he instalado el package-json, admeas de instalar las dependencias de mongoose/mongodb/express/dotenv/config, ademas de scripts dev/start/, he instalado todo esto porque leyendo el ejercicio es lo que entendi que necesitaba, al igual para poder probar el servidor de mongodb.
+
+en mi archivo index.js el cual es el punto de entrada de la aplicacion,creado una instancia de express config a la base de datos de mongodb utilizando mongoose atravez del archivo config/db.js, tambien he insertado express.static porque se utiliza para servir archivos estaticos(img/css/javascript).He utilizado express.urlencoded, para configurar middleware en express para procesar datos enviados desde formularios html.llamo a la funcion dbStore, se encarga de conectar la aplicacion a la base de datos. app.use('/', require('./routes/productRoutes')) para llamar a nuestro endpoints.
+
+Creo archivo config/db.js para la conexion a la base de datos mongodb utilizando mongoose, defino la funcion dbStore que es la que conecta la aplicaion a la base de datos con la MONGO_URI que ya habia creado en el archivo .env.
+
+models/Product.js defino ProductSchema con mongoose para el modelo. defino la estructura de los productos con propiedades.
+
+routes/ProdctRoutes.js aqui manejo las rutas para las solicitudes relacionada con los productos.Creando una colleccion en thunder para post/get/put y delete.
+
+
+controllers/productController.js empezando a crear e implementar funciones para renderizar formularios html dinamicos. he creado una base para html en literal string con todas las propiedades des Schema, tambien iba a crear un navBar , pero no puedo hacerlo correctamente por las categoriass??
+
+
