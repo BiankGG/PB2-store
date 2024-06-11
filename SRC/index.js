@@ -5,7 +5,8 @@ const express = require ('express');
 const app = express()
 const {dbStore} = require ('./config/db')
 const productRoutes = require('./routes/productRoutes')
-//config PORT
+
+//config PORT variable entorno para desplegar
 const dotenv = require('dotenv');
 const PORT = process.env.PORT||3000;
 dotenv.config();

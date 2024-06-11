@@ -1,20 +1,38 @@
+body{
+  background-image: url(https://wallpapers.com/images/hd/1920-x-1080-marvel-bsfb919wb1czbjsl.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 
   
   .ProductCard {
-    border: 1px solid #d31414;
-    width: 35%;
+    display: inline-block;
+    width: 300px;
+    height: 200px;
     border-radius: 5px;
     padding: 10px;
-    margin: 10px;
+    margin: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     box-sizing: border-box;
   }
 
+
   .ProductCard img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
+    max-width: 80%;
+    
+ 
+  } 
+
+  .infoCard {
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: rgb(59, 59, 59);
+    color: rgb(211, 37, 255);
+    
+}
+
+
   .products-container {
     display: flex;
     flex-wrap: wrap;
@@ -26,6 +44,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
+    background-color:rgba(6, 91, 148, 0.6);;
     border-bottom: 2px solid black; 
     width: 100%;
     padding: 10px; 
@@ -36,14 +56,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgb(212, 11, 11);
+    color: rgb(255, 0, 212);
     margin: 0 15px;
-    background-color: black;
+    background-color:rgba(0, 0, 0, 0.6);;
     width: 100px;
-    margin: 0 5px;
     text-decoration: none;
-    height: 45px;
-    width: 150px;
+    height: 55px;
+    width: 170px;
     font-size: 21px;
     box-sizing: border-box;
     font-weight: bold;
@@ -62,5 +81,34 @@
 
 
 
+  .form-create {
+    display: inline-block;
+    border: 6px solid #b717e7;
+    width: 300px; 
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+  }
 
-
+  .form-create label{
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: larger;
+  }
+  .form-create select{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .form-create input{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .form-create input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .form-create textarea {
+    width: 100%;
+    margin-bottom: 10px;
+  }

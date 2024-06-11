@@ -256,11 +256,13 @@ function getProductCards(Products) {
     html += `
     <div class="ProductCard">
     <img src="${Product.Imagen}" alt="${Product.Nombre}">
-    <h2>${Product.Nombre}</h2>
+    <div class= infoCard>
+    <h2 >${Product.Nombre}</h2>
     <p>Descripción:${Product.Descripcion}</p>
     <p>Categoría: ${Product.Categoria}</p>
     <p>Talla:${Product.Talla}</p>
     <p>Precio:$${Product.Precio}</p>
+    </div>
   </div>
   `;
   }
