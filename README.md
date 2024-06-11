@@ -1,4 +1,76 @@
-# Tienda de ropa
+MY README---------
+
+Primero he instalado el package-json, admeas de instalar las dependencias de mongoose/mongodb/express/dotenv/config, ademas de scripts dev/start/, he instalado todo esto porque leyendo el ejercicio es lo que entendi que necesitaba, al igual para poder probar el servidor de mongodb.
+
+en mi archivo index.js el cual es el punto de entrada de la aplicacion,creado una instancia de express config a la base de datos de mongodb utilizando mongoose atravez del archivo config/db.js, tambien he insertado express.static porque se utiliza para servir archivos estaticos(img/css/javascript).He utilizado express.urlencoded, para configurar middleware en express para procesar datos enviados desde formularios html.llamo a la funcion dbStore, se encarga de conectar la aplicacion a la base de datos. app.use('/', require('./routes/productRoutes')) para llamar a nuestro endpoints. He usado un middleware llamado  methodOverride, porque indica que trasforma un formulario metodo get, en PUT Y DELETE, porque los formularios solo pueden mandar solicitudes get y post.
+
+Creo archivo config/db.js para la conexion a la base de datos mongodb utilizando mongoose, defino la funcion dbStore que es la que conecta la aplicaion a la base de datos con la MONGO_URI que ya habia creado en el archivo .env.
+
+models/Product.js defino ProductSchema con mongoose para el modelo. defino la estructura de los productos con propiedades.
+
+routes/ProdctRoutes.js aqui manejo las rutas para las solicitudes relacionada con los productos.Creando una colleccion en thunder para post/get/put y delete.
+
+POST /dashboard - creamos producto
+http://localhost:3000/dashboard
+
+GET /dashboard - devuelve dashboard  con todos los productos
+http://localhost:3000/dashboard
+
+GET /dashboard/:productId - devulve el producto por id
+http://localhost:3000/dashboard/6661a83e8aa8bc17d3bf218c
+
+PUT /dashboard/:productId- actualiza el producto
+http://localhost:3000/dashboard/6661a7fc8aa8bc17d3bf218a
+{
+    "Nombre": "biank",
+    "Descripcion": "hello",
+    "Imagen": "https://cdn.pixabay.com/photo/2017/08/05/12/19/dress-2583113_640.jpg",
+    "Categoria": "Camiseta",
+    "Talla": "S",
+    "Precio": 19.99
+  
+}
+DELETE /dashboard/:productId/delete- borraba producto por id
+http://localhost:3000/dashboard/66674d0f7843ea6473e16bf0/delete
+
+GET /products- devuelve todo los productos
+http://localhost:3000/products
+
+GET /products/:productId-devuelve detalle producto
+http://localhost:3000/products/6661a83e8aa8bc17d3bf218c
+
+
+controllers/productController.js empezando a crear e implementar funciones para renderizar formularios html dinamicos. he creado una base para html en literal string con todas las propiedades del Schema, ademas de un formulario para crear y editar. las funciones son 
+
+showProducts -devuelve una vista con todos los productos, verifica si la url incluye 
+/dashboard para determinar si se esta accediendo desde el dashboard y recupera los productos de la base de datos y genera el html y muestra forma de tarjetas utilizando produtCard.
+
+showProductById-  devuelve la vista con el detalle de un producto especifico, verifica si la url incluye /dashboard, busca el producto en BD por su id y despliega html para mostrar info con funcion productInfo.
+
+createProduct - crea nuevo producto segun datos recibidos req.body, y redirige a final de la vista producto.
+
+updateProduct- actualiza producto(eso intento) en BD. Busca por id y utilizad datos recibidos req.body y se muestra vista producto actualizado.
+
+showEditProduct-devuelve vista con formulario para crear nuevo producto. sale pagina para insertar/rellenar datos. 
+
+showNewProduct- saca formulario para rellenar del nuevo producto. 
+
+deleteProduct - elimina producto por id y despues vuelves a pagina principal.
+
+
+
+
+
+
+
+      
+////////////////////////////////////////////////////////////////////////////
+
+<!-- # Tienda de ropa
+
+
+
+
 
 Vamos a montar una tienda de ropa con un catálogo de productos y un dashboard para el administrador. Los productos se guardarán en una base de datos de mongo en Atlas. Podemos usar como referencia el pdf [web_ejemplo.pdf](web_ejemplo.pdf) que contiene un ejemplo de cómo podría ser la interfaz de la tienda y el dashboard.
 
@@ -215,22 +287,10 @@ Para comprobar si las credenciales son correctas, necesitaremos el middleware `e
 - [Pug](https://pugjs.org/api/getting-started.html)
 - [Firebase](https://firebase.google.com/)
   - [Firebase Auth](https://firebase.google.com/docs/auth)
-  - [Get Started with Firebase Authentication on Websites](https://firebase.google.com/docs/auth/web/start)
+  - [Get Started with Firebase Authentication on Websites](https://firebase.google.com/docs/auth/web/start) -->
 
 
-MY README---------
-
-Primero he instalado el package-json, admeas de instalar las dependencias de mongoose/mongodb/express/dotenv/config, ademas de scripts dev/start/, he instalado todo esto porque leyendo el ejercicio es lo que entendi que necesitaba, al igual para poder probar el servidor de mongodb.
-
-en mi archivo index.js el cual es el punto de entrada de la aplicacion,creado una instancia de express config a la base de datos de mongodb utilizando mongoose atravez del archivo config/db.js, tambien he insertado express.static porque se utiliza para servir archivos estaticos(img/css/javascript).He utilizado express.urlencoded, para configurar middleware en express para procesar datos enviados desde formularios html.llamo a la funcion dbStore, se encarga de conectar la aplicacion a la base de datos. app.use('/', require('./routes/productRoutes')) para llamar a nuestro endpoints.
-
-Creo archivo config/db.js para la conexion a la base de datos mongodb utilizando mongoose, defino la funcion dbStore que es la que conecta la aplicaion a la base de datos con la MONGO_URI que ya habia creado en el archivo .env.
-
-models/Product.js defino ProductSchema con mongoose para el modelo. defino la estructura de los productos con propiedades.
-
-routes/ProdctRoutes.js aqui manejo las rutas para las solicitudes relacionada con los productos.Creando una colleccion en thunder para post/get/put y delete.
 
 
-controllers/productController.js empezando a crear e implementar funciones para renderizar formularios html dinamicos. he creado una base para html en literal string con todas las propiedades des Schema, tambien iba a crear un navBar , pero no puedo hacerlo correctamente por las categoriass??
 
 

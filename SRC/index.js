@@ -5,7 +5,13 @@ const express = require ('express');
 const app = express()
 const {dbStore} = require ('./config/db')
 const productRoutes = require('./routes/productRoutes')
-const { showProducts, showProductById, updateProduct, deleteProduct,showEditProduct,createProduct } = require('./controllers/productController');
+//config PORT
+const dotenv = require('dotenv');
+const PORT = process.env.PORT||3000;
+dotenv.config();
+
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 dbStore()
 app.use(express.json());
@@ -13,23 +19,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/static', express.static('public'));
 
 
-
 //configuro ruta productRoutes EX.
 app.use('/', productRoutes)
 
+ 
 
 
-//configuro rutas express de ProductController 
-app.get('/', showProducts);
-// app.get('/:id', showProductById);
-// app.put('/products/:id', updateProduct);
-// app.delete('/products/:id', deleteProduct);
-// app.get('/dashboard/:productId/edit',showEditProduct);
-// app.post('/dashboard/new', ShowNewProduct);
+
 
 
  
-app.listen(3000, ()=>{
-    console.log('Server is running on port 3000')
+app.listen(PORT, ()=>{
+    console.log(`Server on http://localhost:${PORT}`)
 });
 
