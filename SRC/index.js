@@ -25,10 +25,6 @@ app.use('/', productRoutes)
 
  
 
-
-
-
-
  
 app.listen(PORT, ()=>{
     console.log(`Server on http://localhost:${PORT}`)

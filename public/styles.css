@@ -27,8 +27,8 @@ body{
   .infoCard {
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: rgb(59, 59, 59);
-    color: rgb(211, 37, 255);
+    background-color:rgba(0, 0, 0, 0.9);;
+    color: rgb(255, 255, 255);
     
 }
 

@@ -13,14 +13,14 @@ const showProducts = async (req, res) => {
     const { categoria: categoria } = req.query;
     let products;
     if (categoria) {
-      products = await Product.find({ Categoria: categoria });//solicitud consulta GET ?categoria=/etc..
+      products = await Product.find({ Categoria: categoria }); //solicitud consulta GET ?categoria=/etc..
       // console.log("categoria", products);
     } else {
       products = await Product.find();
-      // console.log("all Products:", products);
+      // console.log("all Products", products);
     }
     const productCards = getProductCards(products, dashboard);
-    // console.log("html:", productCards);
+    // console.log("html", productCards);
     const html = baseHtml(productCards, dashboard);
     res.send(html);
   } catch (error) {
@@ -37,7 +37,7 @@ const showProductById = async (req, res) => {
     if (!product) {
       return res.status(404).send({ message: "product not found" });
     }
-    const ProductInfo = productInfo(product, dashboard); //info product 
+    const ProductInfo = productInfo(product, dashboard); //info product
     const html = baseHtml(ProductInfo, dashboard);
     res.send(html);
   } catch (error) {
@@ -90,6 +90,7 @@ const updateProduct = async (req, res) => {
 // showEditProduct: Devuelve la vista con el formulario para editar un producto.(arreglado)
 
 const showEditProduct = async (req, res) => {
+  
   try {
     const dashboard = req.url.includes("/dashboard");
     const product = await Product.findById(req.params.productId);
@@ -134,27 +135,21 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-
 ///////salga por categoria /dashboard  ????¿¿¿¿¿
-const showProductCategoria= async(req,res)=>{
-  try{
-    const {Categoria}= req.query;
-    console.log("categoria:", Categoria);
-    if(!Categoria){
-      return res.status(404).send("not found"); 
+const PCategoria = async (req, res) => {
+  try {
+    const { Categoria } = req.query;
+    console.log("categoria", Categoria);
+    if (!Categoria) {
+      return res.status(404).send("not found");
     }
-    const categoria =await Product.find({Categoria: categoria});
-    console.log(categoria);
-    const productCards = getProductCards(categoria);
-    const html = baseHtml(productCards); 
-    res.send(html);
-  }catch (error) {
+    const categoria = await Product.find({ Categoria: categoria });
+    console.log("cual?", categoria);
+  } catch (error) {
     console.error(error);
     res.status(500).send("Error");
   }
-}
-
-
+};
 
 function categoriasFormulario() {
   return `
@@ -167,14 +162,7 @@ function categoriasFormulario() {
   `;
 }
 
-
 ///////////////////////////////////////////////////
-
-
-
-
-
-
 
 const baseHtml = (restInformacion, dashboard) => `
   <!DOCTYPE html>
@@ -208,6 +196,7 @@ const productInfo = (product, dashboard) => {
               <form method="GET" action="/dashboard/${product._id}/edit">
                   <button type="submit">Editar</button>
               </form>
+               <a href="/products/${product._id}" class="enlace">Look at new Product!</a>
           </div>
       `;
   } else {
@@ -233,7 +222,7 @@ function getNavBar(dashboard) {
             <a href="/dashboard?categoria=Pantalones">Pantalones</a>
             <a href="/dashboard?categoria=Zapatos">Zapatos</a>
             <a href="/dashboard?categoria=Accesorios">Accesorios</a>
-            <a href="/dashboard/new">Crear producto</a>
+            <a href="/dashboard/new">CREATE</a>
         </nav>
     `;
   } else {
@@ -244,11 +233,11 @@ function getNavBar(dashboard) {
         <a href="/products?categoria=Pantalones">Pantalones</a>
         <a href="/products?categoria=Zapatos">Zapatos</a>
         <a href="/products?categoria=Accesorios">Accesorios</a>
+         <a href="/dashboard/new">CREATE</a>
       </nav>
     `;
   }
 }
-
 
 function getProductCards(Products) {
   let html = "";
@@ -262,6 +251,7 @@ function getProductCards(Products) {
     <p>Categoría: ${Product.Categoria}</p>
     <p>Talla:${Product.Talla}</p>
     <p>Precio:$${Product.Precio}</p>
+    <a href="/products/${Product._id}">LooK at IT!</a>
     </div>
   </div>
   `;
@@ -272,18 +262,18 @@ function getProductCards(Products) {
 const formulario = (product) => `
 <h1>Edit Product</h1>
 <form action="/dashboard/${product._id}?_method=PUT" method="POST">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" value="${product.Nombre}">
-    <label for="descripcion">Descripcion:</label>
-    <input type="text" id="descripcion" name="descripcion" value="${product.Descripcion}">
-    <label for="categoria">Categoria:</label>
-    <input type="text" id="categoria" name="categoria" value="${product.Categoria}">
-    <label for="talla">Talla:</label>
-    <input type="text" id="talla" name="talla" value="${product.Talla}">
-    <label for="precio">Precio:</label>
-    <input type="number" id="precio" name="precio" value="${product.Precio}">
-     <label for="imagen">Imagen:</label>
-    <input type="text" id="imagen" name="imagen" value="${product.Imagen}">
+    <label for="Nombre">Nombre:</label>
+    <input type="text" id="Nombre" name="Nombre" value="${product.Nombre}">
+    <label for="Descripcion">Descripcion:</label>
+    <input type="text" id="Descripcion" name="Descripcion" value="${product.Descripcion}">
+    <label for="Categoria">Categoria:</label>
+    <input type="text" id="Categoria" name="Categoria" value="${product.Categoria}">
+    <label for="Talla">Talla:</label>
+    <input type="text" id="talla" name="Talla" value="${product.Talla}">
+    <label for="Precio">Precio:</label>
+    <input type="Number" id="Precio" name="Precio" value="${product.Precio}">
+     <label for="Imagen">Imagen:</label>
+    <input type="text" id="Imagen" name="Imagen" value="${product.Imagen}">
     <input type="hidden" name="_method" value="PUT">
     <input type="submit" value="Submit">
 </form>

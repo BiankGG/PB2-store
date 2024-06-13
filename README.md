@@ -58,7 +58,7 @@ showNewProduct- saca formulario para rellenar del nuevo producto.
 deleteProduct - elimina producto por id y despues vuelves a pagina principal.
 
 
-
+styles.css- he aplicado estilo a html.
 
 
 

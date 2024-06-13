@@ -9,7 +9,7 @@ const {
   showProductById,
   showNewProduct,
   createProduct,
-  showEditProduct,
+  showEditProduct, 
   updateProduct,
   deleteProduct,
 } = require("../controllers/productController");
