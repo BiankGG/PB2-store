@@ -137,9 +137,9 @@ const deleteProduct = async (req, res) => {
 
 ///////salga por categoria /dashboard  ????¿¿¿¿¿
 const PCategoria = async (req, res) => {
+  const { Categoria } = req.query;
   try {
-    const { Categoria } = req.query;
-    console.log("categoria", Categoria);
+
     if (!Categoria) {
       return res.status(404).send("not found");
     }
@@ -151,7 +151,7 @@ const PCategoria = async (req, res) => {
   }
 };
 
-function categoriasFormulario() {
+const  categoriasFormulario = (dashboard)=> {
   return `
     <div class="categories">
       <a href="/dashboard?categoria=Zapatos">Zapatos</a>
@@ -186,10 +186,12 @@ const productInfo = (product, dashboard) => {
           <div class="Pinfo">
               <h2>${product.Nombre}</h2>
               <img src="${product.Imagen}" alt="${product.Nombre}">
+              <div class= "background">
               <p>${product.Descripcion}</p>
               <p>${product.Precio}€</p>
               <p>Categoría: ${product.Categoria}</p>
               <p>Talla: ${product.Talla}</p>
+              </div>
               <form method="POST" action="/dashboard/${product._id}/delete?_method=DELETE">
                   <button type="submit">Borrar</button>
               </form>
@@ -208,6 +210,11 @@ const productInfo = (product, dashboard) => {
               <p>${product.Precio}€</p>
               <p>Categoría: ${product.Categoria}</p>
               <p>Talla: ${product.Talla}</p>
+               <form method="GET" action="/dashboard/${product._id}/edit">
+                  <button type="submit">Editar</button>
+              </form>
+              
+               <a href="/products" >GET BACK</a>
           </div>
       `;
   }
@@ -243,23 +250,24 @@ function getProductCards(Products) {
   let html = "";
   for (let Product of Products) {
     html += `
-    <div class="ProductCard">
-    <img src="${Product.Imagen}" alt="${Product.Nombre}">
-    <div class= infoCard>
-    <h2 >${Product.Nombre}</h2>
-    <p>Descripción:${Product.Descripcion}</p>
-    <p>Categoría: ${Product.Categoria}</p>
-    <p>Talla:${Product.Talla}</p>
-    <p>Precio:$${Product.Precio}</p>
-    <a href="/products/${Product._id}">LooK at IT!</a>
-    </div>
-  </div>
+      <div class="ProductCard">
+        <img src="${Product.Imagen}" alt="${Product.Nombre}">
+        <div class="infoCard">
+          <h2>${Product.Nombre}</h2>
+          <p>Descripcion: ${Product.Descripcion}</p>
+          <p>Categoria: ${Product.Categoria}</p>
+          <p>Talla: ${Product.Talla}</p>
+          <p>Precio: $${Product.Precio}</p>
+          <a href="/products/${Product._id}">LooK at IT!</a>
+        </div>
+      </div>
   `;
   }
   return html;
 }
 //usar method-override para usar PUT
 const formulario = (product) => `
+<div class= "editPro">
 <h1>Edit Product</h1>
 <form action="/dashboard/${product._id}?_method=PUT" method="POST">
     <label for="Nombre">Nombre:</label>
@@ -277,6 +285,7 @@ const formulario = (product) => `
     <input type="hidden" name="_method" value="PUT">
     <input type="submit" value="Submit">
 </form>
+</div>
 `;
 
 const NewProductForm = () => `
@@ -320,4 +329,5 @@ module.exports = {
   showEditProduct,
   createProduct,
   showNewProduct,
+ 
 };
