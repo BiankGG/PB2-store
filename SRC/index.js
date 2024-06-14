@@ -23,7 +23,7 @@ app.use('/static', express.static('public'));
 //configuro ruta productRoutes EX.
 app.use('/', productRoutes)
 
- 
+
 
  
 app.listen(PORT, ()=>{

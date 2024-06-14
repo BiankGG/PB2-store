@@ -1,293 +1,118 @@
-MY README---------
 
-Primero he instalado el package-json, admeas de instalar las dependencias de mongoose/mongodb/express/dotenv/config, ademas de scripts dev/start/, he instalado todo esto porque leyendo el ejercicio es lo que entendi que necesitaba, al igual para poder probar el servidor de mongodb.
+My Freak Store( pb2-store)
 
-en mi archivo index.js el cual es el punto de entrada de la aplicacion,creado una instancia de express config a la base de datos de mongodb utilizando mongoose atravez del archivo config/db.js, tambien he insertado express.static porque se utiliza para servir archivos estaticos(img/css/javascript).He utilizado express.urlencoded, para configurar middleware en express para procesar datos enviados desde formularios html.llamo a la funcion dbStore, se encarga de conectar la aplicacion a la base de datos. app.use('/', require('./routes/productRoutes')) para llamar a nuestro endpoints. He usado un middleware llamado  methodOverride, porque indica que trasforma un formulario metodo get, en PUT Y DELETE, porque los formularios solo pueden mandar solicitudes get y post.
 
-Creo archivo config/db.js para la conexion a la base de datos mongodb utilizando mongoose, defino la funcion dbStore que es la que conecta la aplicaion a la base de datos con la MONGO_URI que ya habia creado en el archivo .env.
+## Tabla de Contenido
 
-models/Product.js defino ProductSchema con mongoose para el modelo. defino la estructura de los productos con propiedades.
+- Descripcion
 
-routes/ProdctRoutes.js aqui manejo las rutas para las solicitudes relacionada con los productos.Creando una colleccion en thunder para post/get/put y delete.
+- Prerequisitos
 
-POST /dashboard - creamos producto
-http://localhost:3000/dashboard
+- Dependencias
 
-GET /dashboard - devuelve dashboard  con todos los productos
-http://localhost:3000/dashboard
+- Dependencias de desarollo
 
-GET /dashboard/:productId - devulve el producto por id
-http://localhost:3000/dashboard/6661a83e8aa8bc17d3bf218c
+- Scripts
 
-PUT /dashboard/:productId- actualiza el producto
-http://localhost:3000/dashboard/6661a7fc8aa8bc17d3bf218a
-{
-    "Nombre": "biank",
-    "Descripcion": "hello",
-    "Imagen": "https://cdn.pixabay.com/photo/2017/08/05/12/19/dress-2583113_640.jpg",
-    "Categoria": "Camiseta",
-    "Talla": "S",
-    "Precio": 19.99
+- Entorno
+
+- Instalación
+
+- Despligue
+
+## INDICE
+  - Realizar estructura de archivos
+  - Crear base de datos
+  - Crear un servidor
+  - Crear modelos 
+  - Crear rutas
+  - Crear rutas para controladores
+  - Realizar despliegue en Render
+
+
+## Descripción
+
+SE ha creado pb2-store, es un aplicacion para montar una tienda de ropa con un catalogo de productos, 
+Zapatos, Camisetas,Pantalones y Accesorios. Los productos se almacenas en Mongo DB y atlas.
+ Se pueden agregar, editar y borrar segun quieras.
+
+## Prerrequisitos
   
-}
-DELETE /dashboard/:productId/delete- borraba producto por id
-http://localhost:3000/dashboard/66674d0f7843ea6473e16bf0/delete
+- HTML y CSS: Para estructura y estilos 
 
-GET /products- devuelve todo los productos
-http://localhost:3000/products
+- Git y GitHub: Repositorio remoto 
 
-GET /products/:productId-devuelve detalle producto
-http://localhost:3000/products/6661a83e8aa8bc17d3bf218c
+- node.js: Reiniciar automaticamente el servidor cuando hay cambios en el codigo
 
+- Npm: Gestionar las dependencias y scripts de tu proyecto.
 
-controllers/productController.js empezando a crear e implementar funciones para renderizar formularios html dinamicos. he creado una base para html en literal string con todas las propiedades del Schema, ademas de un formulario para crear y editar. las funciones son 
+- MongoDm: Base de datos
 
-showProducts -devuelve una vista con todos los productos, verifica si la url incluye 
-/dashboard para determinar si se esta accediendo desde el dashboard y recupera los productos de la base de datos y genera el html y muestra forma de tarjetas utilizando produtCard.
+- Mongoose: (Object-Document Mapping) para MongoDB
 
-showProductById-  devuelve la vista con el detalle de un producto especifico, verifica si la url incluye /dashboard, busca el producto en BD por su id y despliega html para mostrar info con funcion productInfo.
+- dotenv: Gestion de variables de entorno
 
-createProduct - crea nuevo producto segun datos recibidos req.body, y redirige a final de la vista producto.
+- Config: Manejar configuraciones 
 
-updateProduct- actualiza producto(eso intento) en BD. Busca por id y utilizad datos recibidos req.body y se muestra vista producto actualizado.
+- Express: Manejar rutas
 
-showEditProduct-devuelve vista con formulario para crear nuevo producto. sale pagina para insertar/rellenar datos. 
+- Method: Override- Middleware
 
-showNewProduct- saca formulario para rellenar del nuevo producto. 
+- Pug: Motor de plantillas HTML en Express
 
-deleteProduct - elimina producto por id y despues vuelves a pagina principal.
+- Render: Desplegar el proyecto
 
 
-styles.css- he aplicado estilo a html.
+## Dependencias
+
+    "config": "^3.3.11",
+
+    "dotenv": "^16.4.5",
+
+    "express": "4.19.2",
+
+    "method-override": "^3.0.0",
+
+    "mongodb": "^6.7.0",
+
+    "mongoose": "^8.4.1",
+
+    "pug": "^3.0.3",
 
 
+## Dependencias de Desarrollo
+
+"nodemon": "^3.1.3"
+
+##   Scripts
+
+npm run dev: Inicia la aplicación en modo desarrollo con nodemon.
+
+npm start: Inicia la aplicación en modo producción.
 
 
-      
-////////////////////////////////////////////////////////////////////////////
+## Entorno
 
-<!-- # Tienda de ropa
-
+- Variable de entorno en archivo .env
 
 
+MONGO_URI= mongodb+srv://biancagriffin:BiancaGriffin17@store-pb.n2xto9h.mongodb.net/Store-Proyect
 
+PORT: El puerto en el que la aplicación escuchará (por defecto: 3000).
 
-Vamos a montar una tienda de ropa con un catálogo de productos y un dashboard para el administrador. Los productos se guardarán en una base de datos de mongo en Atlas. Podemos usar como referencia el pdf [web_ejemplo.pdf](web_ejemplo.pdf) que contiene un ejemplo de cómo podría ser la interfaz de la tienda y el dashboard.
+## Instalación
 
-## Índice
+git clone https://github.com/tu-usuario/pb2-store.git
 
-  - [Estructura de archivos](#estructura-de-archivos)
-  - [Creación de base de datos](#creación-de-base-de-datos)
-  - [Creación del servidor](#creación-del-servidor)
-  - [Creación de modelos](#creación-de-modelos)
-  - [Creación de rutas](#creación-de-rutas)
-  - [Creación de controladores](#creación-de-controladores)
-  - [Despliegue](#despliegue)
-  - [Documentación](#documentación)
-  - [Bonus 1 - Tests](#bonus-1---tests)
-  - [Bonus 2 - Autenticación con Firebase](#bonus-2---autenticación-con-firebase)
-  - [Bonus 3 - API y documentación con Swagger](#bonus-3---api-y-documentación-con-swagger)
-  - [Recursos](#recursos)
-
-## Estructura de archivos
-
-Vamos a crear la estructura de archivos que vamos a necesitar para el proyecto. 
-
-```
-.
-├── src
-│   ├── config
-│   │   ├── db.js
-│   │   └── firebase.js (BONUS)
-│   ├── controllers
-│   │   ├── productController.js
-│   │   └──authController.js (BONUS)
-│   ├── models
-│   │   └── Product.js
-│   ├── routes
-│   │   └── productRoutes.js
-│   │   └── authRoutes.js (BONUS)
-│   ├── middlewares (BONUS)
-│   │   └── authMiddleware.js
-│   └── index.js
-├── test (BONUS)
-│   └── productController.test.js
-├── public
-│   ├── styles.css
-│   └── images (OPCIONAL)
-├── .env
-└── package.json
-
-```
-
-### Características de los archivos
-
-- `config/db.js`: Archivo que contendrá la configuración de la base de datos. Deberá conectarse a la base de datos de mongo en Atlas.
-- `controllers/productController.js`: Archivo que contendrá la lógica para manejar las solicitudes CRUD de los productos. Devolverá las respuestas en formato HTML.
-- `models/Product.js`: Archivo que contendrá la definición del esquema del producto utilizando Mongoose.
-- `routes/productRoutes.js`: Archivo que contendrá la definición de las rutas CRUD para los productos. Este llama a los métodos del controlador.
-- `index.js`: Archivo principal que iniciará el servidor Express. Importa las rutas y las usa. También tiene que estar configurado para servir archivos estáticos y para leer el body de las peticiones de formularios.
-- `public/styles.css`: Archivo que contendrá los estilos de la aplicación (recomendable).
-- `public/images`: Carpeta que contendrá las imágenes de los productos (opcional).Se puede evitar si se usan urls externas para las imágenes.
-- `.env`: Archivo que contendrá las variables de entorno. En este caso, la uri de la base de datos de Atlas o el puerto de la aplicación. Más adelante añadiremos más variables de entorno, como la palabra secreta para la sesión.
-- `package.json`: Archivo que contendrá las dependencias del proyecto. Crearemos un script para iniciar el servidor con node y otro para iniciar el servidor con nodemon.("start": "node src/index.js", "dev": "nodemon src/index.js").
-
-**BONUS**
-- `config/firebase.js`: Archivo que contendrá la configuración de firebase. Deberá inicializar la conexión con firebase.
-- `controllers/authController.js`: Archivo que contendrá la lógica para manejar las solicitudes de autenticación. Devolverá las respuestas en formato HTML.
-- `routes/authRoutes.js`: Archivo que contendrá la definición de las rutas para la autenticación. Este llama a los métodos del controlador.
-- `middlewares/authMiddleware.js`: Archivo que contendrá el middleware para comprobar si el usuario está autenticado. Este buscará la sesión del usuario y, si no la encuentra, redirigirá al formulario de login.
-
-## Creacíon de base de datos
-
-Vamos a crear la base de datos en Atlas. Creamos un nuevo proyecto y lo desplegamos.
-
-Una vez creada la base de datos, copiamos la uri y la guardamos en el archivo .env 
-```
-MONGO_URI=<uri_bd_atlas>
-```
-
-## Creación del servidor
-
-Vamos a crear el servidor con express. El servidor devolverá las vistas usando template literals. Para interfaces más complejas, se podría usar un motor de plantillas como pug. También necesitaremos leer el body de las peticiones tipo post. Como trabajaremos con formularios html, necesitaremos el middleware `express.urlencoded` para leer el body de las peticiones.
-
-Para poder añadir estilos, imágenes, etc. necesitaremos el middleware `express.static` para servir archivos estáticos. En nuestro caso, serviremos los archivos estáticos desde la carpeta `public`.
-
-El puerto en el que escuchará el servidor lo cargaremos desde el archivo .env usando `dotenv`.
-
-
-Creamos el archivo `index.js` en la carpeta `src` y añadimos el código necesario para crear el servidor. 
-
-## Creación de modelo
-
-Vamos a crear el modelo de producto. El modelo de producto tendrá los siguientes campos:
-
-- Nombre
-- Descripción
-- Imagen
-- Categoría
-- Talla
-- Precio
-
-La categoría será un string que podrá ser "Camisetas", "Pantalones", "Zapatos", "Accesorios".
-
-La talla será un string que podrá ser "XS", "S", "M", "L", "XL".
-
-
-## Creación de rutas
-
-Vamos a crear las rutas CRUD para los productos. Al usar formularios html, las rutas serán de tipo GET y POST.
- Las rutas deberían tener una estructura similar a esta:
-
-- GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
-- GET /products/:productId: Devuelve el detalle de un producto.
-- GET /dashboard: Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.
-- GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
-- POST /dashboard: Crea un nuevo producto.
-- GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
-- GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
-- PUT /dashboard/:productId: Actualiza un producto.
-- DELETE /dashboard/:productId/delete: Elimina un producto.
-
-## Creación de controladores
-
-A continuación crearemos el controlador de productos. Este controlador se dedicará a manejar las solicitudes CRUD de los productos. Devolverá las respuestas en formato HTML.
-Para ello, crearemos algunas funciones auxiliares que nos ayudarán a devolver las vistas con SSR.
-
-Las funciones principales del controlador serán:
-
-- showProducts: Devuelve la vista con todos los productos.
-- showProductById: Devuelve la vista con el detalle de un producto.
-- showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
-- createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
-- showEditProduct: Devuelve la vista con el formulario para editar un producto.
-- updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
-- deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
-
-Las funciones showProducts y showProductById pueden devolver respuestas ligeramente distintas si se llega desde el dashboard o desde la vista principal. Por ejemplo, si se llega desde el dashboard, se mostrará un enlace para editar o eliminar el producto. Para ello podemos utilizar la url de la petición o pasar al controlador un parámetro extra que indique si se llega desde el dashboard o no.
-
-Para generar el html de forma más eficiente y sacarlo de la lógica, podemos crear funciones y variables auxiliares que generen el html de los productos y del formulario.
-Por ejemplo:
-- baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
-- getNavBar: Genera la barra de navegación con las categorías. En caso de estar en el dashboard, también generará un enlace para subir un nuevo producto.
-- getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
-- ...
-
-Un ejemplo de una función para generar el html de los productos podría ser:
-
-```javascript
-function getProductCards(products) {
-  let html = '';
-  for (let product of products) {
-    html += `
-      <div class="product-card">
-        <img src="${product.image}" alt="${product.name}">
-        <h2>${product.name}</h2>
-        <p>${product.description}</p>
-        <p>${product.price}€</p>
-        <a href="/products/${product._id}">Ver detalle</a>
-      </div>
-    `;
-  }
-  return html;
-}
-```
-
-Con estas funciones auxiliares, el controlador será más limpio y fácil de entender.
-Ejemplo:
-
-```javascript
-
-const showProducts = async (req, res) => {
-  const products = await Product.find();
-  const productCards = getProductCards(products);
-  const html = baseHtml + getNavBar() + productCards;
-  res.send(html);
-};
-    
-```
+Instalar dependencias: npm install
 
 ## Despliegue
 
-Creamos un nuevo proyecto en fl0 y desplegamos el proyecto desde github. Recordad añadir las variables de entorno en fl0. Si no aparece el repositorio en fl0, tendremos que modificar los permisos de fl0 para que pueda acceder al repositorio.
+- En Render, hay que crear una cuenta.
+- Conectar tu repositori GitHub a Render
+- Crear un nuevo servicio en render y selecionar el repositorio. 
+- Configura las variables de entorno.
 
-## Documentación
-
-Crearemos un archivo `README.md` que contenga la documentación del proyecto. En este readme explicaremos cómo poner en marcha la aplicación, las tecnologías que hemos usado, endpoints, etc.
-
-## Bonus 1 - Tests
-
-Para poder comprobar que el controlador de productos funciona correctamente, vamos a crear tests para las funciones. Para ello, necesitaremos instalar el paquete `jest` y crear el archivo `productController.test.js` en la carpeta `test`. En este archivo, importaremos el controlador y crearemos los tests. Podemos hacer tests tanto para las funciones que devuelven html como para las funciones que crean, actualizan o eliminan productos.
-
-## Bonus 2 - API y documentación con Swagger
-
-Para poder usar la aplicación con un frontend en React, vamos a crear una API que haga las mismas operaciones que el controlador de productos, pero que devuelva los datos en formato JSON. Documentaremos la API con Swagger, para que sea más fácil de entender y usar.
-
-## Bonus 3 - Autenticación con Firebase
-
-Vamos a crear un login y pass para el administrador con firebase. Para ello, necesitaremos instalar los paquetes `firebase` y `express-session` y configurar el proyecto en firebase. Podemos ver la guía de cómo hacerlo en el pdf [firebase.pdf](firebase.pdf).
-
-Una vez configurado el proyecto en firebase, podremos crear un formulario de login. Este formulario enviará las credenciales a un endpoint que comprobará si son correctas. Si son correctas, redirigirá al dashboard. Si no, mostrará un mensaje de error. También tendremos una página de registro, a la que se podrá acceder desde el formulario de login. Además, tendremos que crear un archivo `firebase.js` que inicialice la conexión con firebase y que contenga las funciones para comprobar si las credenciales son correctas y para cerrar la sesión.
-
-Para comprobar si las credenciales son correctas, necesitaremos el middleware `express-session` para guardar la sesión del usuario. Tendremos que modificar el archivo index.js para que inicialice el middleware y lo use en las rutas del dashboard. También tendremos que añadir una palabra secreta para la sesión en el archivo .env y crear un archivo `middlewares/authMiddleware.js` que contenga el middleware para comprobar si el usuario está autenticado. Este buscará la sesión del usuario y, si no la encuentra, redirigirá al formulario de login.
-
-
-
-## Recursos
-
-- [Express](https://expressjs.com/)
-- [Mongoose](https://mongoosejs.com/)
-- [Atlas](https://www.mongodb.com/cloud/atlas)
-- [Fl0](https://fl0.io/)
-- [dotenv](https://www.npmjs.com/package/dotenv)
-- [express-session](https://www.npmjs.com/package/express-session)
-- [express.urlencoded](https://expressjs.com/en/api.html#express.urlencoded)
-- [express.static](https://expressjs.com/en/api.html#express.static)
-- [Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
-- [Pug](https://pugjs.org/api/getting-started.html)
-- [Firebase](https://firebase.google.com/)
-  - [Firebase Auth](https://firebase.google.com/docs/auth)
-  - [Get Started with Firebase Authentication on Websites](https://firebase.google.com/docs/auth/web/start) -->
 
 
 

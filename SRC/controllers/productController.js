@@ -4,10 +4,11 @@
 //preguntar en tutoria si puedo hacer una funcion mas donde se busca el producto por categoria ??
 
 const Product = require("../models/Product");
+const manejoError= require('../middleware/errors')
 
 // showProducts: Devuelve la vista con todos los productos.
 
-const showProducts = async (req, res) => {
+const showProducts = async (req, res, next) => {
   try {
     const dashboard = req.url.includes("/dashboard");
     const { categoria: categoria } = req.query;
@@ -24,13 +25,12 @@ const showProducts = async (req, res) => {
     const html = baseHtml(productCards, dashboard);
     res.send(html);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("error");
+    next(err)
   }
 };
 
 // showProductById: Devuelve la vista con el detalle de un producto.(arreglado)
-const showProductById = async (req, res) => {
+const showProductById = async (req, res, next) => {
   try {
     const dashboard = req.url.includes("/dashboard");
     const product = await Product.findById(req.params.productId);
@@ -41,28 +41,26 @@ const showProductById = async (req, res) => {
     const html = baseHtml(ProductInfo, dashboard);
     res.send(html);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "error getting product" });
+    next(err)
   }
 };
 
 // createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle
 //  del producto o a la vista de todos los productos del dashboard.
 
-const createProduct = async (req, res) => {
+const createProduct = async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body);
     res.redirect(`/dashboard/${newProduct._id}`);
   } catch (error) {
-    console.log(error);
-    res.status(500).send("server error");
+    next(err)
   }
 };
 
 // updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de
 // detalle del producto o a la vista de todos los productos del dashboard.
 
-const updateProduct = async (req, res) => {
+const updateProduct = async (req, res,next) => {
   try {
     console.log("reqParams:", req.params);
     console.log("reqBody:", req.body);
@@ -82,14 +80,13 @@ const updateProduct = async (req, res) => {
     }
     res.redirect(`/dashboard/${productId}`);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error");
+     next(err)
   }
 };
 
 // showEditProduct: Devuelve la vista con el formulario para editar un producto.(arreglado)
 
-const showEditProduct = async (req, res) => {
+const showEditProduct = async (req, res,next) => {
   
   try {
     const dashboard = req.url.includes("/dashboard");
@@ -103,8 +100,7 @@ const showEditProduct = async (req, res) => {
     const html = baseHtml(Formulario, dashboard);
     res.send(html);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error");
+    next(err)
   }
 };
 
@@ -121,7 +117,7 @@ const showNewProduct = (req, res) => {
 // deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista
 //  de todos los productos del dashboard.
 
-const deleteProduct = async (req, res) => {
+const deleteProduct = async (req, res, next) => {
   const { productId } = req.params;
   try {
     const deletedProduct = await Product.findByIdAndDelete(productId);
@@ -130,13 +126,12 @@ const deleteProduct = async (req, res) => {
     }
     res.redirect("/dashboard");
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error");
+     next(err)
   }
 };
 
 ///////salga por categoria /dashboard  ????¿¿¿¿¿
-const PCategoria = async (req, res) => {
+const PCategoria = async (req, res, next) => {
   const { Categoria } = req.query;
   try {
 
@@ -146,8 +141,7 @@ const PCategoria = async (req, res) => {
     const categoria = await Product.find({ Categoria: categoria });
     console.log("cual?", categoria);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error");
+    next(err)
   }
 };
 
